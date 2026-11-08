@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>India Smart Tools - Free Salary, Tax, EMI, CGPA & PDF Tools</title>
+  <meta name="description" content="Free India-focused calculators for in-hand salary, income tax, job offer comparison, loan EMI, CGPA, attendance and PDF optimization. No sign-up required." />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#2563eb" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%232563eb%22/%3E%3Ctext x=%2250%22 y=%2267%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22white%22 font-family=%22Arial%22 font-weight=%22bold%22%3EIS%3C/text%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="India Smart Tools - Free Online Calculators" />
+  <meta property="og:description" content="Useful free calculators for salary, tax, loans, academics and PDF files." />
+  <meta property="og:site_name" content="India Smart Tools" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    
+    :root {
+      --brand-primary: #2563eb;
+      --brand-dark: #1d4ed8;
+      --navy-deep: #0f172a;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* Keyframes for SaaS Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    .animate-fade-in-up {
+      animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-float-shape {
+      animation: floatSlow 6s ease-in-out infinite;
+    }
+
+    .pulse-glow {
+      animation: pulseGlow 4s ease-in-out infinite;
+    }
+
+    /* Glassmorphism & SaaS Card Depth */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(37, 99, 235, 0.4);
+      box-shadow: 0 20px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.03);
+      transform: translateY(-3px);
+    }
+
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+      animation: fadeInUp 0.35s ease-out forwards;
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      .animate-fade-in-up, .animate-float-shape, .pulse-glow, .glass-card:hover {
+        animation: none !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-blue-600 selection:text-white">
+
+  <!-- HEADER / NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 shadow-xs transition-all duration-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" onclick="switchTab('home')" class="flex items-center space-x-3 group focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-xl p-1">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 via-blue-600 to-indigo-600 flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform duration-200">
+          IS
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-extrabold tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors">India Smart Tools</span>
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-blue-600 -mt-1">SaaS Utility Platform</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Buttons -->
+      <nav class="hidden lg:flex items-center space-x-1 bg-slate-100/70 p-1 rounded-xl border border-slate-200/60 text-xs font-semibold">
+        <button onclick="switchTab('home')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="home">Home</button>
+        <button onclick="switchTab('ctc')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="ctc">CTC Calculator</button>
+        <button onclick="switchTab('tax')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="tax">Income Tax</button>
+        <button onclick="switchTab('job')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="job">Job Offer</button>
+        <button onclick="switchTab('emi')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="emi">Loan EMI</button>
+        <button onclick="switchTab('cgpa')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="cgpa">CGPA</button>
+        <button onclick="switchTab('att')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="att">Attendance</button>
+        <button onclick="switchTab('pdf')" class="nav-btn px-3 py-1.5 rounded-lg text-slate-700 hover:text-blue-600 hover:bg-white transition-all duration-150 active:scale-95" data-tab="pdf">PDF Tool</button>
+      </nav>
+
+      <!-- Search & Mobile Toggle -->
+      <div class="flex items-center space-x-3">
+        <div class="hidden sm:flex items-center relative">
+          <input
+            type="text"
+            id="nav-search"
+            placeholder="Quick Search..."
+            oninput="handleSearch(this.value, 'nav-search-results')"
+            class="px-3.5 py-1.5 text-xs bg-slate-100/90 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all w-44"
+          />
+          <div id="nav-search-results" class="absolute top-full right-0 mt-2 w-64 bg-white border border-slate-200 rounded-xl shadow-xl hidden z-50 p-1"></div>
+        </div>
+
+        <button onclick="toggleMobileMenu()" aria-label="Toggle Mobile Menu" class="lg:hidden p-2 text-slate-700 hover:text-blue-600 rounded-lg hover:bg-slate-100 transition focus:outline-none focus:ring-2 focus:ring-blue-600">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white/95 border-b border-slate-200 px-4 pt-3 pb-4 space-y-1.5 font-medium text-sm text-slate-700 shadow-lg">
+      <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">Home</button>
+      <button onclick="switchTab('ctc'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">CTC Calculator</button>
+      <button onclick="switchTab('tax'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">Income Tax Calculator</button>
+      <button onclick="switchTab('job'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">Job Offer Comparison</button>
+      <button onclick="switchTab('emi'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">Loan EMI Calculator</button>
+      <button onclick="switchTab('cgpa'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">CGPA Tool</button>
+      <button onclick="switchTab('att'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">Attendance Calculator</button>
+      <button onclick="switchTab('pdf'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-600">PDF Optimizer</button>
+    </div>
+  </header>
+
+  <main class="flex-grow">
+    <!-- HOMEPAGE TAB -->
+    <div id="tab-home" class="tab-content active">
+      
+      <!-- HERO SECTION -->
+      <section class="relative bg-slate-900 text-white overflow-hidden py-16 sm:py-24 border-b border-slate-800">
+        <!-- Animated Backdrop Shapes -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+          <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pulse-glow"></div>
+          <div class="absolute top-1/2 -right-32 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pulse-glow" style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10 space-y-6">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-xs font-bold uppercase tracking-wider animate-float-shape">
+            <span>✨ Modern SaaS Utility Platform for India</span>
+          </div>
+          
+          <h1 class="text-3xl sm:text-6xl font-black tracking-tight text-white leading-tight">
+            Smart Tools for <span class="bg-gradient-to-r from-blue-400 via-indigo-300 to-teal-300 bg-clip-text text-transparent">Everyday Calculations</span>
+          </h1>
+          
+          <p class="text-slate-300 text-base sm:text-xl max-w-2xl mx-auto leading-relaxed">
+            Free, accurate, and instant online financial calculators, income tax regime estimators, and client-side PDF utilities.
+          </p>
+
+          <!-- Search Input -->
+          <div class="max-w-xl mx-auto relative pt-4">
+            <div class="flex items-center bg-white/95 rounded-2xl shadow-2xl border border-white/20 p-2.5 focus-within:ring-4 focus-within:ring-blue-500/40 transition-all">
+              <svg class="w-5 h-5 text-slate-400 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+              <input
+                type="text"
+                placeholder="Search tools: CTC, Income Tax, EMI, CGPA, Attendance..."
+                oninput="handleSearch(this.value, 'hero-search-results')"
+                class="w-full px-3 py-2 text-sm text-slate-900 placeholder-slate-400 bg-transparent focus:outline-none font-medium"
+              />
+            </div>
+            <div id="hero-search-results" class="absolute left-0 right-0 mt-2 bg-white rounded-2xl shadow-2xl border border-slate-200 hidden z-50 text-left text-slate-900 overflow-hidden"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TOOLS GRID SECTION -->
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center mb-12">
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Seven Precision Utilities</h2>
+          <p class="text-slate-500 text-sm sm:text-base mt-2">Select a tool to execute browser-side calculations instantly</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          
+          <!-- Tool Card 1 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-blue-100/70 text-blue-600 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">💰</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">Finance & Salary</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">CTC to In-Hand Calculator</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Detailed monthly take-home salary calculation, EPF, employer PF, HRA, professional tax, and gratuity breakdown.</p>
+            </div>
+            <button onclick="switchTab('ctc')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+          <!-- Tool Card 2 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-indigo-100/70 text-indigo-600 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">📊</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Indian Taxation</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">Income Tax Calculator</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Compare Old vs. New Tax Regimes (FY 2026-27 & 2025-26) with verified slabs, rebates, cess, and deductions.</p>
+            </div>
+            <button onclick="switchTab('tax')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+          <!-- Tool Card 3 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-teal-100/70 text-teal-700 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">🤝</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-full">Career Planning</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">Job Offer Comparison</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Side-by-side evaluation of two job offers comparing fixed base pay, variable bonus, and joining perks.</p>
+            </div>
+            <button onclick="switchTab('job')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+          <!-- Tool Card 4 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-blue-100/70 text-blue-600 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">🏦</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">Banking & Loans</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">Loan EMI Calculator</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Calculate monthly EMI, interest vs principal ratio, zero-interest edge cases, and view full amortization schedule.</p>
+            </div>
+            <button onclick="switchTab('emi')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+          <!-- Tool Card 5 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-purple-100/70 text-purple-600 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">🎓</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">Academics</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">CGPA & Percentage</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Calculate credit-weighted GPA, multi-semester cumulative CGPA, and configurable university percentage conversion.</p>
+            </div>
+            <button onclick="switchTab('cgpa')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+          <!-- Tool Card 6 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-amber-100/70 text-amber-700 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">📅</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full">College Utilities</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">Attendance Calculator</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Determine how many consecutive classes to attend or maximum safe bunks to maintain mandatory attendance target.</p>
+            </div>
+            <button onclick="switchTab('att')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+          <!-- Tool Card 7 -->
+          <div class="glass-card rounded-2xl p-6 shadow-xs transition-all duration-300 flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+            <div>
+              <div class="w-12 h-12 rounded-xl bg-emerald-100/70 text-emerald-700 flex items-center justify-center text-2xl font-bold mb-4 shadow-xs">🗜️</div>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full">Client Security</span>
+              <h3 class="text-lg font-extrabold text-slate-900 mt-3">Client-Side PDF Optimizer</h3>
+              <p class="text-slate-600 text-xs mt-2 leading-relaxed">Re-save PDF object streams in your browser. Embedded images are not recompressed.</p>
+            </div>
+            <button onclick="switchTab('pdf')" class="mt-6 py-2.5 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-xs rounded-xl shadow-md active:scale-95 transition-all text-center">Launch Tool</button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- WHY CHOOSE US -->
+      <section class="bg-white border-y border-slate-200 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="max-w-3xl mx-auto text-center mb-12">
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Why Choose India Smart Tools?</h2>
+            <p class="text-slate-500 text-sm mt-2">Built with modern privacy standards and accurate Indian regulatory calculations.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs">
+              <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center font-bold mb-3">🔒</div>
+              <h3 class="text-sm font-bold text-slate-900 mb-1">100% Client-Side Privacy</h3>
+              <p class="text-slate-600 text-xs leading-relaxed">Calculations and document compression are performed directly in JavaScript. Nothing is sent to external servers.</p>
+            </div>
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs">
+              <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold mb-3">🇮🇳</div>
+              <h3 class="text-sm font-bold text-slate-900 mb-1">Official Indian Rules</h3>
+              <p class="text-slate-600 text-xs leading-relaxed">Updated with FY 2026-27 tax slabs, EPF caps, professional tax rules, and university CGPA conversion formulas.</p>
+            </div>
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200/80 shadow-xs">
+              <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center font-bold mb-3">⚡</div>
+              <h3 class="text-sm font-bold text-slate-900 mb-1">Lightning Fast SaaS Design</h3>
+              <p class="text-slate-600 text-xs leading-relaxed">No forced signups, no clutter, zero page reloads, and responsive mobile-first layouts for fast access.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 1. CTC CALCULATOR TAB -->
+    <div id="tab-ctc" class="tab-content max-w-5xl mx-auto px-4 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-black text-slate-900">💰 CTC to In-Hand Salary Calculator</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Calculate your monthly take-home pay based on Indian corporate CTC rules</p>
+        </div>
+        <button onclick="resetCTC()" class="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl transition active:scale-95">Reset</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Salary Component Inputs</h2>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Annual CTC (₹)</label>
+            <input type="number" id="ctc-val" value="1200000" min="0" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Basic Salary (% CTC)</label>
+              <input type="number" id="ctc-basic-pct" value="40" min="0" max="100" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">HRA (% Basic)</label>
+              <input type="number" id="ctc-hra-pct" value="50" min="0" max="100" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Employee EPF (%)</label>
+              <input type="number" id="ctc-epf-pct" value="12" min="0" max="20" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Employer EPF (%)</label>
+              <input type="number" id="ctc-employer-epf-pct" value="12" min="0" max="20" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Prof. Tax (₹/year)</label>
+              <input type="number" id="ctc-ptax" value="2500" min="0" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Gratuity (% Basic)</label>
+              <input type="number" id="ctc-gratuity-pct" value="4.81" min="0" step="0.01" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Variable Pay (₹/yr)</label>
+              <input type="number" id="ctc-var" value="100000" min="0" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Other Deductions (₹/mo)</label>
+              <input type="number" id="ctc-other-ded" value="0" min="0" oninput="calcCTC()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div>
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2 mb-4">Detailed Take-Home Breakdown</h2>
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-5 rounded-2xl shadow-md mb-4">
+              <span class="text-xs font-bold uppercase tracking-wider opacity-90">Estimated Monthly In-Hand Pay</span>
+              <div id="ctc-out-monthly" class="text-3xl font-black mt-1">₹ 0</div>
+            </div>
+            <div class="space-y-2 text-xs divide-y divide-slate-100">
+              <div class="flex justify-between pt-1"><span>Annual In-Hand Pay:</span><span id="ctc-out-annual-inhand" class="font-bold text-slate-900">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Monthly Gross Salary:</span><span id="ctc-out-gross" class="font-bold text-slate-900">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Monthly Employee PF Deduction:</span><span id="ctc-out-pf" class="font-bold text-red-600">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Monthly Professional Tax:</span><span id="ctc-out-ptax-mo" class="font-bold text-red-600">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Annual Basic Component:</span><span id="ctc-out-basic" class="font-bold text-slate-900">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Annual HRA Component:</span><span id="ctc-out-hra" class="font-bold text-slate-900">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Employer PF (Annual Component):</span><span id="ctc-out-employer-pf" class="font-bold text-slate-900">₹ 0</span></div>
+              <div class="flex justify-between pt-1"><span>Gratuity (Annual Component):</span><span id="ctc-out-gratuity" class="font-bold text-slate-900">₹ 0</span></div>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-4 border-t pt-2">Estimate only: TDS is excluded. Employer PF, gratuity and variable-pay treatment differ by company; professional tax varies by state. Verify your salary structure and PF wage base with your employer.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. INCOME TAX TAB -->
+    <div id="tab-tax" class="tab-content max-w-5xl mx-auto px-4 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-black text-slate-900">📊 Indian Income Tax Calculator</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Compare Old vs New Regime tax liabilities (FY 2026-27 & 2025-26)</p>
+        </div>
+        <button onclick="resetTax()" class="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl transition active:scale-95">Reset</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Tax Calculation Inputs</h2>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Financial Year</label>
+            <select id="tax-fy" onchange="calcTax()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition">
+              <option value="2026-2027">FY 2026-27 (Latest Budget Slabs)</option>
+              <option value="2025-2026">FY 2025-26</option>
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Annual Salary Income (₹)</label>
+              <input type="number" id="tax-sal" value="1250000" min="0" oninput="calcTax()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Other Income (Interest etc ₹)</label>
+              <input type="number" id="tax-other" value="25000" min="0" oninput="calcTax()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+          </div>
+          <div class="border-t pt-3 space-y-3">
+            <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Old Regime Deductions</span>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">80C Deductions (Max 1.5L ₹)</label>
+                <input type="number" id="tax-80c" value="150000" min="0" oninput="calcTax()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Eligible 80D Deduction (₹)</label>
+                <input type="number" id="tax-80d" value="25000" min="0" oninput="calcTax()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Eligible HRA Exemption / Home-Loan Interest (₹)</label>
+              <input type="number" id="tax-hra" value="100000" min="0" oninput="calcTax()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div>
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2 mb-4">Old vs. New Regime Comparison</h2>
+            <p class="text-[11px] text-slate-500 mb-3">Estimate for resident individuals below 60 using normal slab income only. Special-rate income, surcharge, senior-citizen slabs and several deduction-specific limits are not modelled. Verify with the Income Tax Department before filing.</p>
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="bg-slate-50 p-3.5 rounded-2xl border border-slate-200 text-center">
+                <span class="text-[11px] font-bold text-slate-500 uppercase">Old Regime Tax</span>
+                <div id="tax-out-old" class="text-xl font-extrabold text-slate-900 mt-1">₹ 0</div>
+                <div id="tax-out-old-eff" class="text-[10px] text-slate-500 mt-0.5">Effective Rate: 0%</div>
+              </div>
+              <div class="bg-blue-50/80 p-3.5 rounded-2xl border border-blue-200 text-center">
+                <span class="text-[11px] font-bold text-blue-600 uppercase">New Regime Tax</span>
+                <div id="tax-out-new" class="text-xl font-extrabold text-blue-600 mt-1">₹ 0</div>
+                <div id="tax-out-new-eff" class="text-[10px] text-blue-500 mt-0.5">Effective Rate: 0%</div>
+              </div>
+            </div>
+            <div id="tax-verdict" class="p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-bold text-emerald-800 text-center mb-4">
+              Calculating comparison...
+            </div>
+            <div class="space-y-1.5 text-xs text-slate-600 border-t pt-3">
+              <div class="flex justify-between"><span>Gross Total Income:</span><span id="tax-out-gross" class="font-bold text-slate-900">₹ 0</span></div>
+              <div class="flex justify-between"><span>Standard Deduction (New Regime):</span><span id="tax-out-std-new" class="font-bold text-slate-900">₹ 75,000</span></div>
+              <div class="flex justify-between"><span>Includes Health & Edu Cess:</span><span class="font-bold text-slate-900">4%</span></div>
+            </div>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-4 border-t pt-2 text-center">Calculations incorporate official budget slabs and Section 87A rebate rules.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. JOB OFFER COMPARISON TAB -->
+    <div id="tab-job" class="tab-content max-w-5xl mx-auto px-4 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-black text-slate-900">🤝 Job Offer Comparison Calculator</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Side-by-side evaluation of two job offers</p>
+        </div>
+        <button onclick="resetJobOffers()" class="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl transition active:scale-95">Reset Offers</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <!-- Offer 1 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-blue-600 border-b pb-2">Offer 1 (Company A)</h2>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Company Name</label>
+            <input type="text" id="job-a-name" value="TechCorp India" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Annual CTC (₹)</label>
+              <input type="number" id="job-a-ctc" value="1600000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Fixed Base Pay (₹)</label>
+              <input type="number" id="job-a-fixed" value="1300000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Variable Bonus (₹)</label>
+              <input type="number" id="job-a-var" value="200000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Joining Bonus (₹)</label>
+              <input type="number" id="job-a-bonus" value="100000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+          </div>
+        </div>
+
+        <!-- Offer 2 -->
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-indigo-600 border-b pb-2">Offer 2 (Company B)</h2>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Company Name</label>
+            <input type="text" id="job-b-name" value="Innovate Solutions" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Annual CTC (₹)</label>
+              <input type="number" id="job-b-ctc" value="1500000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Fixed Base Pay (₹)</label>
+              <input type="number" id="job-b-fixed" value="1400000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Variable Bonus (₹)</label>
+              <input type="number" id="job-b-var" value="50000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Joining Bonus (₹)</label>
+              <input type="number" id="job-b-bonus" value="150000" min="0" oninput="calcJobOffers()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Offer Comparison Table & Analysis -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+        <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Side-by-Side Offer Comparison</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 border-b">
+              <tr>
+                <th class="p-3 font-bold text-slate-700">Metric</th>
+                <th id="job-lbl-a" class="p-3 font-bold text-blue-600">Offer 1</th>
+                <th id="job-lbl-b" class="p-3 font-bold text-indigo-600">Offer 2</th>
+                <th class="p-3 font-bold text-slate-700">Difference</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              <tr><td class="p-3 font-medium">Annual CTC</td><td id="job-res-a-ctc" class="p-3 font-bold">₹ 0</td><td id="job-res-b-ctc" class="p-3 font-bold">₹ 0</td><td id="job-diff-ctc" class="p-3 font-bold text-blue-600">₹ 0</td></tr>
+              <tr><td class="p-3 font-medium">Annual Fixed Compensation</td><td id="job-res-a-fixed" class="p-3 font-bold">₹ 0</td><td id="job-res-b-fixed" class="p-3 font-bold">₹ 0</td><td id="job-diff-fixed" class="p-3 font-bold text-blue-600">₹ 0</td></tr>
+              <tr><td class="p-3 font-medium">Variable Bonus Component</td><td id="job-res-a-var" class="p-3">₹ 0</td><td id="job-res-b-var" class="p-3">₹ 0</td><td id="job-diff-var" class="p-3 font-bold text-slate-700">₹ 0</td></tr>
+              <tr><td class="p-3 font-medium">First-Year Cashflow (Fixed + Bonuses)</td><td id="job-res-a-1st" class="p-3 font-black text-slate-900">₹ 0</td><td id="job-res-b-1st" class="p-3 font-black text-slate-900">₹ 0</td><td id="job-diff-1st" class="p-3 font-extrabold text-blue-600">₹ 0</td></tr>
+              <tr><td class="p-3 font-medium">Estimated Monthly Fixed Gross</td><td id="job-res-a-mo" class="p-3">₹ 0</td><td id="job-res-b-mo" class="p-3">₹ 0</td><td id="job-diff-mo" class="p-3 font-bold">₹ 0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="job-verdict" class="p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 leading-relaxed font-bold">
+          Analyzing job offer comparison...
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. EMI CALCULATOR TAB -->
+    <div id="tab-emi" class="tab-content max-w-5xl mx-auto px-4 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-black text-slate-900">🏦 Loan EMI Calculator</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Reducing balance EMI calculation with full repayment amortization schedule</p>
+        </div>
+        <button onclick="resetEMI()" class="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl transition active:scale-95">Reset</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Loan Parameters</h2>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Loan Amount (₹)</label>
+            <input type="number" id="emi-amount" value="5000000" min="0" oninput="calcEMI()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Annual Interest Rate (%)</label>
+              <input type="number" step="0.1" id="emi-rate" value="8.5" min="0" max="50" oninput="calcEMI()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Tenure Duration</label>
+              <div class="flex items-center space-x-1">
+                <input type="number" id="emi-tenure" value="20" min="1" oninput="calcEMI()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+                <select id="emi-unit" onchange="calcEMI()" class="p-2.5 border rounded-xl text-xs bg-slate-50 font-medium">
+                  <option value="years">Years</option>
+                  <option value="months">Months</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div class="space-y-3">
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Repayment Summary</h2>
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-5 rounded-2xl shadow-md">
+              <span class="text-xs font-bold uppercase tracking-wider opacity-90">Monthly Loan EMI</span>
+              <div id="emi-out-monthly" class="text-3xl font-black mt-1">₹ 0</div>
+            </div>
+            <div class="flex justify-between text-xs text-slate-600 pt-1"><span>Principal Amount:</span><span id="emi-out-principal" class="font-bold text-slate-900">₹ 0</span></div>
+            <div class="flex justify-between text-xs text-slate-600"><span>Total Interest Payable:</span><span id="emi-out-interest" class="font-bold text-red-600">₹ 0</span></div>
+            <div class="flex justify-between text-xs text-slate-600 border-t pt-2"><span>Total Repayment Amount:</span><span id="emi-out-total" class="font-black text-slate-900">₹ 0</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amortization Schedule Table -->
+      <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-3">
+        <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Repayment Amortization Schedule (First 12 Months)</h2>
+        <div class="overflow-x-auto max-h-64 overflow-y-auto">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 sticky top-0 border-b">
+              <tr>
+                <th class="p-2.5 font-bold">Month</th>
+                <th class="p-2.5 font-bold">EMI Paid</th>
+                <th class="p-2.5 font-bold">Principal Component</th>
+                <th class="p-2.5 font-bold">Interest Component</th>
+                <th class="p-2.5 font-bold">Remaining Balance</th>
+              </tr>
+            </thead>
+            <tbody id="emi-table-body" class="divide-y divide-slate-100">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. CGPA CALCULATOR TAB -->
+    <div id="tab-cgpa" class="tab-content max-w-5xl mx-auto px-4 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-black text-slate-900">🎓 CGPA & Percentage Calculator</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Credit-weighted GPA calculation with university formula multipliers</p>
+        </div>
+        <button onclick="resetCGPA()" class="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl transition active:scale-95">Reset Subjects</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-2 bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex justify-between items-center border-b pb-2">
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400">Subjects & Grades List</h2>
+            <button onclick="addSubjectRow()" class="px-3 py-1 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded-xl text-xs font-bold transition active:scale-95">+ Add Subject</button>
+          </div>
+          <div id="cgpa-rows" class="space-y-3">
+            <!-- Dynamic Subject Rows -->
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div class="space-y-4">
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Cumulative Results</h2>
+            <div>
+              <label class="block text-xs font-bold uppercase text-slate-700 mb-1">University Formula Multiplier</label>
+              <select id="cgpa-formula" onchange="calcCGPA()" class="w-full p-2.5 border rounded-xl text-xs bg-slate-50 font-medium">
+                <option value="9.5">Standard / CBSE / DU (CGPA × 9.5)</option>
+                <option value="10">Direct Percentage (CGPA × 10.0)</option>
+                <option value="9.0">VTU / Custom Formula (CGPA × 9.0)</option>
+              </select>
+            </div>
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-5 rounded-2xl shadow-md text-center">
+              <span class="text-xs font-bold uppercase tracking-wider opacity-90">Calculated CGPA</span>
+              <div id="cgpa-out-val" class="text-3xl font-black mt-1">0.00</div>
+            </div>
+            <div class="space-y-2 text-xs divide-y divide-slate-100">
+              <div class="flex justify-between pt-1"><span class="text-slate-600">Total Course Credits:</span><span id="cgpa-out-credits" class="font-bold text-slate-900">0</span></div>
+              <div class="flex justify-between pt-1"><span class="text-slate-600">Equivalent Percentage:</span><span id="cgpa-out-pct" class="font-extrabold text-blue-600">0%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ATTENDANCE CALCULATOR TAB -->
+    <div id="tab-att" class="tab-content max-w-4xl mx-auto px-4 py-10">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl font-black text-slate-900">📅 College Attendance Calculator</h1>
+          <p class="text-xs text-slate-500 mt-0.5">Determine safe bunks or required classes to maintain mandatory target percentage</p>
+        </div>
+        <button onclick="resetAttendance()" class="px-3 py-1.5 text-xs font-bold text-slate-600 bg-slate-200/80 hover:bg-slate-300 rounded-xl transition active:scale-95">Reset</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Class Log Inputs</h2>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Total Conducted Classes</label>
+            <input type="number" id="att-conducted" value="50" min="0" step="1" oninput="calcAttendance()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Classes Attended</label>
+            <input type="number" id="att-attended" value="42" min="0" step="1" oninput="calcAttendance()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Target Attendance (%)</label>
+            <input type="number" id="att-target" value="75" min="1" max="100" oninput="calcAttendance()" class="w-full p-2.5 border rounded-xl text-sm bg-slate-50 font-medium focus:ring-2 focus:ring-blue-600 focus:bg-white transition"/>
+          </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col justify-between">
+          <div class="space-y-4">
+            <h2 class="text-xs font-extrabold uppercase tracking-wider text-slate-400 border-b pb-2">Attendance Status</h2>
+            <div class="bg-gradient-to-br from-blue-600 to-indigo-700 text-white p-5 rounded-2xl shadow-md text-center">
+              <span class="text-xs font-bold uppercase tracking-wider opacity-90">Current Attendance Rate</span>
+              <div id="att-out-pct" class="text-3xl font-black mt-1">0%</div>
+            </div>
+            <div id="att-status-card" class="p-4 rounded-xl border text-xs leading-relaxed font-bold text-center">
+              Calculating status...
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. PDF COMPRESSOR TAB -->
+    <div id="tab-pdf" class="tab-content max-w-3xl mx-auto px-4 py-10">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-black text-slate-900">🗜️ Client-Side PDF Optimizer</h1>
+        <p class="text-xs text-slate-500 mt-0.5">Re-save a PDF with optimized object streams in your browser. This does not recompress embedded images.</p>
+      </div>
+      <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-xs space-y-6">
+        <div id="pdf-drop" onclick="document.getElementById('pdf-input').click()" class="border-2 border-dashed border-slate-300 rounded-2xl p-8 text-center hover:border-blue-600 cursor-pointer bg-slate-50/70 transition-all group">
+          <div class="w-12 h-12 rounded-xl bg-blue-100/70 text-blue-600 flex items-center justify-center text-2xl mx-auto mb-3 group-hover:scale-110 transition-transform">📄</div>
+          <p class="text-sm font-bold text-slate-800">Click to select PDF or drag file here</p>
+          <p class="text-xs text-slate-400 mt-1">Private processing — the selected file is processed in your browser</p>
+          <input type="file" id="pdf-input" accept="application/pdf" onchange="handlePdf(this.files[0])" class="hidden"/>
+        </div>
+
+        <div id="pdf-info" class="hidden space-y-3 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
+          <div class="flex justify-between"><span>File Name:</span><span id="pdf-name" class="font-bold text-slate-900"></span></div>
+          <div class="flex justify-between"><span>Original Size:</span><span id="pdf-size" class="font-bold text-slate-900"></span></div>
+          <button id="pdf-btn" onclick="compressPdf()" class="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl active:scale-98 transition-all text-xs shadow-md">Optimize PDF Now</button>
+        </div>
+
+        <div id="pdf-res" class="hidden p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-3 text-xs">
+          <p class="text-emerald-800 font-extrabold">PDF Optimization Complete</p>
+          <div class="flex justify-around text-slate-600 text-xs">
+            <span>New Size: <strong id="pdf-out-size" class="text-slate-900"></strong></span>
+            <span>Savings: <strong id="pdf-out-pct" class="text-emerald-700 font-bold"></strong></span>
+          </div>
+          <a id="pdf-down" download="optimized.pdf" class="inline-block px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-md active:scale-95 transition-all">Download Optimized PDF</a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 py-10 text-xs border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-4 text-center"><nav class="flex flex-wrap justify-center gap-4 mb-4"><a href="/about.html" class="underline hover:text-white">About</a><a href="/privacy.html" class="underline hover:text-white">Privacy Policy</a><a href="/terms.html" class="underline hover:text-white">Terms & Disclaimer</a></nav></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6 text-center><p>India Smart Tools provides general estimates for education and planning only. It is not financial, tax, legal or professional advice. Check official rules and your employer or lender documents before making decisions.</p><p class="mt-2">Calculations run in your browser. Do not upload confidential documents to a device or browser you do not trust.</p></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4 text-center sm:text-left sm:flex sm:items-center sm:justify-between">
+      <div class="space-y-1">
+        <div class="flex items-center justify-center sm:justify-start space-x-2">
+          <div class="w-6 h-6 rounded-md bg-blue-600 flex items-center justify-center text-white font-black text-xs">IS</div>
+          <span class="text-sm font-bold text-white">India Smart Tools</span>
+        </div>
+        <p class="text-slate-400 text-[11px]">&copy; 2026 India Smart Tools. All calculations are executed client-side.</p>
+      </div>
+      <div class="flex justify-center space-x-4 text-xs font-medium text-slate-400">
+        <a href="#" onclick="switchTab('ctc')" class="hover:text-white transition">CTC</a>
+        <a href="#" onclick="switchTab('tax')" class="hover:text-white transition">Income Tax</a>
+        <a href="#" onclick="switchTab('job')" class="hover:text-white transition">Job Offer</a>
+        <a href="#" onclick="switchTab('emi')" class="hover:text-white transition">EMI</a>
+        <a href="#" onclick="switchTab('cgpa')" class="hover:text-white transition">CGPA</a>
+        <a href="#" onclick="switchTab('att')" class="hover:text-white transition">Attendance</a>
+        <a href="#" onclick="switchTab('pdf')" class="hover:text-white transition">PDF Tool</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Escape user-provided text before inserting it into HTML.
+    function escapeHTML(value) {
+      return String(value ?? '').replace(/[&<>"']/g, ch => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      })[ch]);
+    }
+
+    function fmt(num) {
+      return '₹ ' + Math.max(0, num || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 });
+    }
+
+    function toggleMobileMenu() {
+      const menu = document.getElementById('mobile-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabId) {
+          btn.classList.add('bg-white', 'text-blue-600', 'shadow-xs');
+        } else {
+          btn.classList.remove('bg-white', 'text-blue-600', 'shadow-xs');
+        }
+      });
+
+      const target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (tabId === 'ctc') calcCTC();
+      if (tabId === 'tax') calcTax();
+      if (tabId === 'job') calcJobOffers();
+      if (tabId === 'emi') calcEMI();
+      if (tabId === 'cgpa') calcCGPA();
+      if (tabId === 'att') calcAttendance();
+    }
+
+    const tools = [
+      { name: 'CTC to In-Hand Salary Calculator', tab: 'ctc' },
+      { name: 'Income Tax Calculator', tab: 'tax' },
+      { name: 'Job Offer Comparison', tab: 'job' },
+      { name: 'Loan EMI Calculator', tab: 'emi' },
+      { name: 'CGPA Calculator', tab: 'cgpa' },
+      { name: 'Attendance Calculator', tab: 'att' },
+      { name: 'PDF Optimizer', tab: 'pdf' }
+    ];
+
+    function handleSearch(query, resultsId) {
+      const container = document.getElementById(resultsId);
+      if (!container) return;
+      if (!query.trim()) { container.classList.add('hidden'); return; }
+      const matches = tools.filter(t => t.name.toLowerCase().includes(query.toLowerCase()));
+      if (matches.length === 0) {
+        container.innerHTML = '<div class="p-3 text-xs text-slate-400">No matching utility found</div>';
+      } else {
+        container.innerHTML = matches.map(m => `
+          <div onclick="switchTab('${m.tab}'); document.getElementById('${resultsId}').classList.add('hidden');" class="p-3 text-xs font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-600 cursor-pointer transition">
+            ${escapeHTML(m.name)}
+          </div>
+        `).join('');
+      }
+      container.classList.remove('hidden');
+    }
+
+    // 1. CTC CALCULATOR LOGIC
+    function calcCTC() {
+      const getVal = (id, fallback) => {
+        const el = document.getElementById(id);
+        if (!el || el.value.trim() === '') return fallback;
+        const v = parseFloat(el.value);
+        return isNaN(v) ? fallback : Math.max(0, v);
+      };
+
+      let ctc = getVal('ctc-val', 1200000);
+      let basicPct = Math.min(100, getVal('ctc-basic-pct', 40));
+      let hraPct = Math.min(100, getVal('ctc-hra-pct', 50));
+      let epfPct = Math.min(20, getVal('ctc-epf-pct', 12));
+      let employerEpfPct = Math.min(20, getVal('ctc-employer-epf-pct', 12));
+      let ptaxAnnual = getVal('ctc-ptax', 2500);
+      let gratuityPct = Math.min(20, getVal('ctc-gratuity-pct', 4.81));
+      let varPay = getVal('ctc-var', 0);
+      let otherDedMonthly = getVal('ctc-other-ded', 0);
+
+      const annualBasic = ctc * (basicPct / 100);
+      const annualHra = annualBasic * (hraPct / 100);
+      const employerPf = annualBasic * (employerEpfPct / 100);
+      const gratuity = annualBasic * (gratuityPct / 100);
+      const employeePf = annualBasic * (epfPct / 100);
+
+      const totalDirectDeductions = employerPf + gratuity + varPay;
+      const fixedGrossAnnual = Math.max(0, ctc - totalDirectDeductions);
+      const monthlyGross = fixedGrossAnnual / 12;
+
+      const monthlyPfDeduction = employeePf / 12;
+      const monthlyPtax = ptaxAnnual / 12;
+      const monthlyDeductions = monthlyPfDeduction + monthlyPtax + otherDedMonthly;
+      const monthlyInhand = Math.max(0, monthlyGross - monthlyDeductions);
+
+      document.getElementById('ctc-out-monthly').innerText = fmt(monthlyInhand);
+      document.getElementById('ctc-out-annual-inhand').innerText = fmt(monthlyInhand * 12);
+      document.getElementById('ctc-out-gross').innerText = fmt(monthlyGross);
+      document.getElementById('ctc-out-pf').innerText = fmt(monthlyPfDeduction);
+      document.getElementById('ctc-out-ptax-mo').innerText = fmt(monthlyPtax);
+      document.getElementById('ctc-out-basic').innerText = fmt(annualBasic);
+      document.getElementById('ctc-out-hra').innerText = fmt(annualHra);
+      document.getElementById('ctc-out-employer-pf').innerText = fmt(employerPf);
+      document.getElementById('ctc-out-gratuity').innerText = fmt(gratuity);
+    }
+
+    function resetCTC() {
+      document.getElementById('ctc-val').value = 1200000;
+      document.getElementById('ctc-basic-pct').value = 40;
+      document.getElementById('ctc-hra-pct').value = 50;
+      document.getElementById('ctc-epf-pct').value = 12;
+      document.getElementById('ctc-employer-epf-pct').value = 12;
+      document.getElementById('ctc-ptax').value = 2500;
+      document.getElementById('ctc-gratuity-pct').value = 4.81;
+      document.getElementById('ctc-var').value = 100000;
+      document.getElementById('ctc-other-ded').value = 0;
+      calcCTC();
+    }
+
+    // 2. INCOME TAX ESTIMATOR — standard slab income only (not special-rate income)
+    function calcTax() {
+      const fy = document.getElementById('tax-fy').value;
+      const salary = Math.max(0, Number(document.getElementById('tax-sal').value) || 0);
+      const other = Math.max(0, Number(document.getElementById('tax-other').value) || 0);
+      const d80c = Math.min(150000, Math.max(0, Number(document.getElementById('tax-80c').value) || 0));
+      const d80d = Math.max(0, Number(document.getElementById('tax-80d').value) || 0);
+      const otherOldDeductions = Math.max(0, Number(document.getElementById('tax-hra').value) || 0);
+      const gross = salary + other;
+      const fmtTax = n => fmt(Math.round(Math.max(0, n)));
+      const slabTax = (income, slabs) => {
+        let tax = 0;
+        let lower = 0;
+        for (const [upper, rate] of slabs) {
+          const taxable = Math.max(0, Math.min(income, upper) - lower);
+          tax += taxable * rate;
+          lower = upper;
+          if (income <= upper) break;
+        }
+        return tax;
+      };
+      const oldSlabs = [[250000,0],[500000,.05],[1000000,.20],[Infinity,.30]];
+      const newSlabs = [[400000,0],[800000,.05],[1200000,.10],[1600000,.15],[2000000,.20],[2400000,.25],[Infinity,.30]];
+
+      // Standard deduction is applied only against salary income, not other income.
+      const oldTaxable = Math.max(0, salary - 50000 - d80c - d80d - otherOldDeductions) + other;
+      const newTaxable = Math.max(0, salary - 75000) + other;
+      let oldBaseTax = slabTax(oldTaxable, oldSlabs);
+      // Assumes a resident individual below 60 years; rebate eligibility is residency-dependent.
+      if (oldTaxable <= 500000) oldBaseTax = Math.max(0, oldBaseTax - Math.min(12500, oldBaseTax));
+      const oldTax = oldBaseTax * 1.04;
+
+      let newBaseTax = slabTax(newTaxable, newSlabs);
+      // Section 87A rebate up to ₹60,000 for total income up to ₹12 lakh;
+      // marginal relief caps tax at income exceeding ₹12 lakh.
+      if (newTaxable <= 1200000) newBaseTax = 0;
+      else newBaseTax = Math.min(newBaseTax, newTaxable - 1200000);
+      const newTax = newBaseTax * 1.04;
+
+      document.getElementById('tax-out-gross').innerText = fmtTax(gross);
+      document.getElementById('tax-out-std-new').innerText = fmt(75000);
+      document.getElementById('tax-out-old').innerText = fmtTax(oldTax);
+      document.getElementById('tax-out-old-eff').innerText = `Effective Rate: ${gross > 0 ? ((oldTax/gross)*100).toFixed(2) : '0.00'}%`;
+      document.getElementById('tax-out-new').innerText = fmtTax(newTax);
+      document.getElementById('tax-out-new-eff').innerText = `Effective Rate: ${gross > 0 ? ((newTax/gross)*100).toFixed(2) : '0.00'}%`;
+
+      const verdict = document.getElementById('tax-verdict');
+      const saving = Math.abs(oldTax - newTax);
+      if (newTax < oldTax) {
+        verdict.className = 'p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs font-bold text-blue-900 text-center';
+        verdict.textContent = `New Tax Regime is lower by ${fmtTax(saving)} for ${fy}.`;
+      } else if (oldTax < newTax) {
+        verdict.className = 'p-3.5 bg-emerald-50 border border-emerald-200 rounded-xl text-xs font-bold text-emerald-900 text-center';
+        verdict.textContent = `Old Tax Regime is lower by ${fmtTax(saving)} for ${fy}.`;
+      } else {
+        verdict.className = 'p-3.5 bg-slate-100 border border-slate-200 rounded-xl text-xs font-bold text-slate-800 text-center';
+        verdict.textContent = `Both regimes produce the same estimated tax: ${fmtTax(newTax)}.`;
+      }
+    }
+
+    function resetTax() {
+      document.getElementById('tax-sal').value = 1250000;
+      document.getElementById('tax-other').value = 25000;
+      document.getElementById('tax-80c').value = 150000;
+      document.getElementById('tax-80d').value = 25000;
+      document.getElementById('tax-hra').value = 100000;
+      calcTax();
+    }
+
+    // 3. JOB OFFER COMPARISON LOGIC
+    function calcJobOffers() {
+      const nameA = document.getElementById('job-a-name').value || 'Offer 1';
+      const ctcA = Math.max(0, parseFloat(document.getElementById('job-a-ctc').value) || 0);
+      const fixedA = Math.max(0, parseFloat(document.getElementById('job-a-fixed').value) || 0);
+      const varA = Math.max(0, parseFloat(document.getElementById('job-a-var').value) || 0);
+      const bonusA = Math.max(0, parseFloat(document.getElementById('job-a-bonus').value) || 0);
+
+      const nameB = document.getElementById('job-b-name').value || 'Offer 2';
+      const ctcB = Math.max(0, parseFloat(document.getElementById('job-b-ctc').value) || 0);
+      const fixedB = Math.max(0, parseFloat(document.getElementById('job-b-fixed').value) || 0);
+      const varB = Math.max(0, parseFloat(document.getElementById('job-b-var').value) || 0);
+      const bonusB = Math.max(0, parseFloat(document.getElementById('job-b-bonus').value) || 0);
+
+      const firstYrA = fixedA + varA + bonusA;
+      const firstYrB = fixedB + varB + bonusB;
+      const grossMoA = fixedA / 12;
+      const grossMoB = fixedB / 12;
+
+      document.getElementById('job-lbl-a').innerText = nameA;
+      document.getElementById('job-lbl-b').innerText = nameB;
+
+      document.getElementById('job-res-a-ctc').innerText = fmt(ctcA);
+      document.getElementById('job-res-b-ctc').innerText = fmt(ctcB);
+      document.getElementById('job-diff-ctc').innerText = fmt(Math.abs(ctcA - ctcB));
+
+      document.getElementById('job-res-a-fixed').innerText = fmt(fixedA);
+      document.getElementById('job-res-b-fixed').innerText = fmt(fixedB);
+      document.getElementById('job-diff-fixed').innerText = fmt(Math.abs(fixedA - fixedB));
+
+      document.getElementById('job-res-a-var').innerText = fmt(varA);
+      document.getElementById('job-res-b-var').innerText = fmt(varB);
+      document.getElementById('job-diff-var').innerText = fmt(Math.abs(varA - varB));
+
+      document.getElementById('job-res-a-1st').innerText = fmt(firstYrA);
+      document.getElementById('job-res-b-1st').innerText = fmt(firstYrB);
+      document.getElementById('job-diff-1st').innerText = fmt(Math.abs(firstYrA - firstYrB));
+
+      document.getElementById('job-res-a-mo').innerText = fmt(grossMoA);
+      document.getElementById('job-res-b-mo').innerText = fmt(grossMoB);
+      document.getElementById('job-diff-mo').innerText = fmt(Math.abs(grossMoA - grossMoB));
+
+      const v = document.getElementById('job-verdict');
+      if (firstYrA > firstYrB) {
+        v.innerHTML = `🏆 <strong>${escapeHTML(nameA)}</strong> delivers higher first-year cashflow by <strong>${fmt(firstYrA - firstYrB)}</strong> (Fixed + Bonuses).`;
+      } else if (firstYrB > firstYrA) {
+        v.innerHTML = `🏆 <strong>${escapeHTML(nameB)}</strong> delivers higher first-year cashflow by <strong>${fmt(firstYrB - firstYrA)}</strong> (Fixed + Bonuses).`;
+      } else {
+        v.innerHTML = `🤝 Both offers deliver identical total first-year cashflow of ${fmt(firstYrA)}.`;
+      }
+    }
+
+    function resetJobOffers() {
+      document.getElementById('job-a-name').value = 'TechCorp India';
+      document.getElementById('job-a-ctc').value = 1600000;
+      document.getElementById('job-a-fixed').value = 1300000;
+      document.getElementById('job-a-var').value = 200000;
+      document.getElementById('job-a-bonus').value = 100000;
+      document.getElementById('job-b-name').value = 'Innovate Solutions';
+      document.getElementById('job-b-ctc').value = 1500000;
+      document.getElementById('job-b-fixed').value = 1400000;
+      document.getElementById('job-b-var').value = 50000;
+      document.getElementById('job-b-bonus').value = 150000;
+      calcJobOffers();
+    }
+
+    // 4. EMI CALCULATOR LOGIC
+    function calcEMI() {
+      const p = Math.max(0, parseFloat(document.getElementById('emi-amount').value) || 0);
+      const rateAnnual = Math.max(0, parseFloat(document.getElementById('emi-rate').value) || 0);
+      const tenureVal = Math.max(1, parseFloat(document.getElementById('emi-tenure').value) || 1);
+      const unit = document.getElementById('emi-unit').value;
+
+      const n = unit === 'years' ? tenureVal * 12 : tenureVal;
+      const r = rateAnnual / 12 / 100;
+
+      let emi = 0;
+      if (r === 0) {
+        emi = n > 0 ? p / n : 0;
+      } else {
+        emi = (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+      }
+      const totalRepay = emi * n;
+      const totalInt = Math.max(0, totalRepay - p);
+
+      document.getElementById('emi-out-monthly').innerText = fmt(emi);
+      document.getElementById('emi-out-principal').innerText = fmt(p);
+      document.getElementById('emi-out-interest').innerText = fmt(totalInt);
+      document.getElementById('emi-out-total').innerText = fmt(totalRepay);
+
+      let bal = p;
+      let rowsHtml = '';
+      const limit = Math.min(12, n);
+      for (let m = 1; m <= limit; m++) {
+        const intComp = bal * r;
+        const prinComp = emi - intComp;
+        bal = Math.max(0, bal - prinComp);
+        rowsHtml += `<tr>
+          <td class="p-2.5 font-bold">Month ${m}</td>
+          <td class="p-2.5 font-semibold">${fmt(emi)}</td>
+          <td class="p-2.5 font-bold text-emerald-700">${fmt(prinComp)}</td>
+          <td class="p-2.5 font-bold text-red-600">${fmt(intComp)}</td>
+          <td class="p-2.5">${fmt(bal)}</td>
+        </tr>`;
+      }
+      document.getElementById('emi-table-body').innerHTML = rowsHtml;
+    }
+
+    function resetEMI() {
+      document.getElementById('emi-amount').value = 5000000;
+      document.getElementById('emi-rate').value = 8.5;
+      document.getElementById('emi-tenure').value = 20;
+      document.getElementById('emi-unit').value = 'years';
+      calcEMI();
+    }
+
+    // 5. CGPA CALCULATOR LOGIC
+    let subjectCount = 0;
+    function addSubjectRow(name = '', credits = 4, grade = 9) {
+      subjectCount++;
+      const container = document.getElementById('cgpa-rows');
+      const div = document.createElement('div');
+      div.className = 'grid grid-cols-12 gap-2 items-center';
+      div.id = 'cgpa-row-' + subjectCount;
+      const safeName = escapeHTML(name || 'Subject ' + subjectCount);
+      div.innerHTML = `
+        <div class="col-span-5"><input type="text" value="${safeName}" placeholder="Subject Name" class="w-full p-2.5 border rounded-xl text-xs bg-slate-50 font-medium"/></div>
+        <div class="col-span-3"><input type="number" value="${credits}" min="1" max="10" oninput="calcCGPA()" class="w-full p-2.5 border rounded-xl text-xs bg-slate-50 font-medium cgpa-credit"/></div>
+        <div class="col-span-3"><input type="number" value="${grade}" min="0" max="10" oninput="calcCGPA()" class="w-full p-2.5 border rounded-xl text-xs bg-slate-50 font-medium cgpa-grade"/></div>
+        <div class="col-span-1 text-center"><button onclick="removeSubjectRow(${subjectCount})" class="text-red-500 font-bold hover:text-red-700 text-sm">✕</button></div>
+      `;
+      container.appendChild(div);
+      calcCGPA();
+    }
+
+    function removeSubjectRow(id) {
+      const el = document.getElementById('cgpa-row-' + id);
+      if (el) el.remove();
+      calcCGPA();
+    }
+
+    function calcCGPA() {
+      const credits = document.querySelectorAll('.cgpa-credit');
+      const grades = document.querySelectorAll('.cgpa-grade');
+      const mult = parseFloat(document.getElementById('cgpa-formula').value) || 9.5;
+
+      let totCredits = 0;
+      let totPoints = 0;
+      for (let i = 0; i < credits.length; i++) {
+        const c = Math.min(10, Math.max(0, parseFloat(credits[i].value) || 0));
+        const g = Math.min(10, Math.max(0, parseFloat(grades[i].value) || 0));
+        totCredits += c;
+        totPoints += c * g;
+      }
+      const cgpa = totCredits > 0 ? totPoints / totCredits : 0;
+      document.getElementById('cgpa-out-val').innerText = cgpa.toFixed(2);
+      document.getElementById('cgpa-out-credits').innerText = totCredits;
+      document.getElementById('cgpa-out-pct').innerText = (cgpa * mult).toFixed(2) + '%';
+    }
+
+    function resetCGPA() {
+      document.getElementById('cgpa-rows').innerHTML = '';
+      subjectCount = 0;
+      addSubjectRow('Mathematics', 4, 9);
+      addSubjectRow('Physics', 4, 8);
+      calcCGPA();
+    }
+
+    // 6. ATTENDANCE CALCULATOR LOGIC
+    function calcAttendance() {
+      const rawCond = Number(document.getElementById('att-conducted').value);
+      const rawAtt = Number(document.getElementById('att-attended').value);
+      let cond = Math.max(0, Number.isFinite(rawCond) ? rawCond : 0);
+      let att = Math.max(0, Number.isFinite(rawAtt) ? rawAtt : 0);
+      let target = Math.max(1, Math.min(100, parseFloat(document.getElementById('att-target').value) || 75));
+
+      const card = document.getElementById('att-status-card');
+
+      if (!Number.isInteger(cond) || !Number.isInteger(att)) {
+        document.getElementById('att-out-pct').innerText = 'Invalid';
+        card.className = 'p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-red-50 border-red-200 text-red-800';
+        card.textContent = 'Please enter whole numbers for conducted and attended classes.';
+        return;
+      }
+      if (cond === 0) {
+        document.getElementById('att-out-pct').innerText = '0%';
+        card.className = "p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-slate-100 text-slate-700";
+        card.innerHTML = "ℹ️ Enter total conducted classes greater than 0.";
+        return;
+      }
+
+      if (att > cond) {
+        document.getElementById('att-out-pct').innerText = 'Invalid';
+        card.className = "p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-red-50 border-red-200 text-red-800";
+        card.innerHTML = `❌ <strong>Invalid Input</strong><br/>Attended classes (${att}) cannot exceed total conducted classes (${cond}).`;
+        return;
+      }
+
+      const pct = (att / cond) * 100;
+      document.getElementById('att-out-pct').innerText = pct.toFixed(1) + '%';
+
+      if (pct >= target) {
+        if (target === 100) {
+          card.className = "p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-emerald-50 border-emerald-200 text-emerald-900";
+          card.innerHTML = `✅ <strong>100% Attendance Maintained!</strong><br/>You have attended all ${cond} classes.`;
+        } else {
+          const maxBunk = Math.floor((att - (target / 100) * cond) / (target / 100));
+          card.className = "p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-emerald-50 border-emerald-200 text-emerald-900";
+          card.innerHTML = `✅ <strong>Attendance On Target!</strong><br/>You can safely bunk up to <strong>${Math.max(0, maxBunk)}</strong> upcoming classes.`;
+        }
+      } else {
+        if (target === 100 && att < cond) {
+          card.className = "p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-amber-50 border-amber-200 text-amber-900";
+          card.innerHTML = `⚠️ <strong>100% Target Impossible</strong><br/>You have already missed ${cond - att} class(es).`;
+        } else {
+          const needed = Math.ceil(((target / 100) * cond - att) / (1 - (target / 100)));
+          card.className = "p-4 rounded-xl border text-xs leading-relaxed font-bold text-center bg-amber-50 border-amber-200 text-amber-900";
+          card.innerHTML = `⚠️ <strong>Attendance Below Target</strong><br/>Attend the next <strong>${Math.max(0, needed)}</strong> consecutive classes to reach ${target}%.`;
+        }
+      }
+    }
+
+    function resetAttendance() {
+      document.getElementById('att-conducted').value = 50;
+      document.getElementById('att-attended').value = 42;
+      document.getElementById('att-target').value = 75;
+      calcAttendance();
+    }
+
+    // 7. PDF COMPRESSOR LOGIC
+    let loadedPdf = null;
+    function handlePdf(file) {
+      loadedPdf = null;
+      document.getElementById('pdf-info').classList.add('hidden');
+      document.getElementById('pdf-res').classList.add('hidden');
+      if (!file) return;
+      if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+        alert('Please select a valid PDF file.');
+        return;
+      }
+      if (file.size > 25 * 1024 * 1024) { alert('Please choose a PDF smaller than 25 MB.'); return; }
+      loadedPdf = file;
+      document.getElementById('pdf-name').innerText = file.name;
+      document.getElementById('pdf-size').innerText = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+      document.getElementById('pdf-info').classList.remove('hidden');
+      document.getElementById('pdf-res').classList.add('hidden');
+    }
+
+    async function compressPdf() {
+      if (!loadedPdf) return;
+      const btn = document.getElementById('pdf-btn');
+      btn.innerText = 'Optimizing in browser...';
+      btn.disabled = true;
+
+      try {
+        const bytes = await loadedPdf.arrayBuffer();
+        if (bytes.byteLength < 5 || new TextDecoder().decode(bytes.slice(0, 5)) !== '%PDF-') throw new Error('Invalid PDF signature');
+        const doc = await PDFLib.PDFDocument.load(bytes);
+        const outBytes = await doc.save({ useObjectStreams: true, addDefaultPage: false });
+        const blob = new Blob([outBytes], { type: 'application/pdf' });
+
+        const origSize = loadedPdf.size;
+        const newSize = blob.size;
+        const resBox = document.getElementById('pdf-res');
+
+        document.getElementById('pdf-out-size').innerText = (newSize / 1024 / 1024).toFixed(2) + ' MB';
+        document.getElementById('pdf-out-pct').innerText = (newSize <= origSize ? (((origSize - newSize) / origSize) * 100).toFixed(1) + '% smaller' : (((newSize - origSize) / origSize) * 100).toFixed(1) + '% larger');
+        const downloadUrl = URL.createObjectURL(blob);
+        if (newSize >= origSize) {
+          resBox.className = "p-4 bg-amber-50 border border-amber-200 rounded-2xl text-center space-y-2 text-xs";
+          resBox.innerHTML = `
+            <p class="text-amber-800 font-bold">The optimized copy is not smaller</p>
+            <p class="text-slate-600">This tool re-saves PDF object streams; it does not recompress embedded images. Original: ${(origSize/1024/1024).toFixed(2)} MB; output: ${(newSize/1024/1024).toFixed(2)} MB. You can still download the processed copy below.</p>
+            <a id="pdf-down-alt" download="optimized.pdf" class="inline-block px-5 py-2.5 bg-slate-700 text-white font-bold rounded-xl">Download processed PDF</a>
+          `;
+          const altDownload = document.getElementById('pdf-down-alt');
+          if (altDownload) altDownload.href = downloadUrl;
+          resBox.classList.remove('hidden');
+        } else {
+          const savedPct = (((origSize - newSize) / origSize) * 100).toFixed(1);
+          document.getElementById('pdf-out-size').innerText = (newSize / 1024 / 1024).toFixed(2) + ' MB';
+          document.getElementById('pdf-out-pct').innerText = savedPct + '% Saved';
+          document.getElementById('pdf-down').href = downloadUrl;
+          resBox.className = "p-4 bg-emerald-50 border border-emerald-200 rounded-2xl text-center space-y-3 text-xs";
+          resBox.classList.remove('hidden');
+        }
+      } catch(err) {
+        alert('Could not process this PDF. It may be encrypted, damaged, or unsupported. Try another PDF file.');
+      } finally {
+        btn.innerText = 'Optimize PDF Now';
+        btn.disabled = false;
+      }
+    }
+
+    window.onload = () => {
+      resetCGPA();
+      switchTab('home');
+
+      const dropZone = document.getElementById('pdf-drop');
+      if (dropZone) {
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-blue-600'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-blue-600'));
+        dropZone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          dropZone.classList.remove('border-blue-600');
+          if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            handlePdf(e.dataTransfer.files[0]);
+          }
+        });
+      }
+    };
+  </script>
+</body>
+</html>
